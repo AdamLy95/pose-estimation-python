@@ -10,17 +10,17 @@ Multiple detections are not supported
 Recommended to run with Python 3.6+
 
 Install using pip :
-'pip install -r requirements"
+> pip install -r requirements
 
 
 ### Running
 
 Try to run main.py from your virtual environment
-< 'python main.py'
+> python main.py
 
 or if you run directly
 
-< 'python3 main.py'
+> python3 main.py
 
 ## Authors
 
