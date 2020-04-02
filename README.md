@@ -16,15 +16,15 @@ Install using pip :
 ### Running
 
 Try to run main.py from your virtual environment
-'python main.py'
+< 'python main.py'
 
 or if you run directly
 
-'python3 main.py'
+< 'python3 main.py'
 
 ## Authors
 
-* **Adam Ly** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Adam Ly** 
 
 
 
