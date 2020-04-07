@@ -5,7 +5,7 @@ import cv2
 model = "posenet_mobilenet_v1_100_257x257_multi_kpt_stripped.tflite"
 image = cv2.imread("test.jpg")
 pose_estimator = PoseEstimator(model)
-coords , scores = pose_estimator(image)
+coords , scores = pose_estimator(image) #Might be better if the image is converted to RGB here
 '''
 0 	nose
 1 	leftEye
