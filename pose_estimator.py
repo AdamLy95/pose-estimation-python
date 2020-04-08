@@ -40,19 +40,14 @@ class PoseEstimator():
         heatmaps = self.interpreter.get_tensor(self.out_idx[0]['index'])
         offsets = self.interpreter.get_tensor(self.out_idx[1]['index'])
         height,width,n_keypoints = heatmaps.shape[1:]
-        maximum_likelihood_keypoints = np.zeros((n_keypoints,2))
 
-        for i in range(n_keypoints):
-            h_map = heatmaps[...,i]
-            maximum_likelihood_keypoints[i,:] = np.unravel_index(np.argmax(h_map), h_map.shape)[1:]
-        confidence_scores = np.zeros(n_keypoints)
-        coords = np.zeros((n_keypoints,2))
-
-        for i,p in enumerate(maximum_likelihood_keypoints):
-            y,x = p.astype(int)
-            coords[i,0] = p[0] / (height - 1) * im_h + offsets[0,y,x,i] * im_h/257
-            coords[i,1] = p[1] / (width - 1) * im_h + offsets[0,y,x,i+n_keypoints] * im_w/257
-            confidence_scores[i] = expit(heatmaps[0,y,x,i])
+        maximum_likelihood_keypoints = np.squeeze(heatmaps).reshape(-1,heatmaps.shape[3])
+        maximum_likelihood_keypoints = np.array(np.unravel_index(np.argmax(maximum_likelihood_keypoints,axis=0),heatmaps.shape[1:3])).T
+        
+        offsetVector = np.array([ [offsets[0,y,x,i],offsets[0,y,x,i+n_keypoints]] for i,(y,x) in enumerate(maximum_likelihood_keypoints.astype(int))])
+        
+        coords = maximum_likelihood_keypoints / (np.array([height,width])-1) * im_h + offsetVector*im_h/257
+        confidence_scores = [expit(heatmaps[0,y,x,i])  for i,(y,x) in enumerate(maximum_likelihood_keypoints.astype(int))]
         
         return coords,confidence_scores
     
