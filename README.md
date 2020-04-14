@@ -2,9 +2,6 @@
 
 Pose estimation using PoseNet from [tensorflow] (https://www.tensorflow.org/lite/models/pose_estimation/overview) using Python.
 
-Multiple detections are not supported
-
-
 ### Installing
 
 Recommended to run with Python 3.6+
