@@ -92,6 +92,9 @@ class PoseEstimator():
 
     def _traverse_to_keypoint(self,source_coords,target_edge,scores,displacement, offsets):
         source_indices = np.round(source_coords *8/257).astype(np.int32)
+        source_indices[source_indices < 0] = 0
+        source_indices[source_indices > 8] = 8
+
         target_point = source_coords + displacement[0,source_indices[0], source_indices[1]]
 
         target_point_indices = np.round(target_point *8/257).astype(np.int32)
